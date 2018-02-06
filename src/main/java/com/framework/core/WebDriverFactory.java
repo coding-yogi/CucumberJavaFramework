@@ -1,16 +1,11 @@
 package com.framework.core;
 
-import java.io.File;
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.*;
 
-import com.framework.handlers.XMLHandler;
 import io.appium.java_client.android.AndroidDriver;
 import io.selendroid.common.SelendroidCapabilities;
 
-import org.openqa.selenium.Platform;
 import org.openqa.selenium.Proxy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -20,44 +15,18 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
-import org.w3c.dom.*;
 
-public class Driver {
+public class WebDriverFactory {
 
-	private String executionPath;
-	private String storagePath;
-	private String wdPath;
-	private String dataPath;
-
-	private String env;
-	private String className;
-	private String browserName;
-
-
-	//Constructor
-	public Driver(String env, String className, String browserName) {
-
-		this.env = env;
-		this.className = className;
-		this.browserName = browserName;
-		
-		//Get Root Path
-		String workingPath = System.getProperty("user.dir");
-		String rootPath = workingPath;
-		
-		//Set paths
-		executionPath = rootPath + "/execution";
-		storagePath = rootPath;
-		dataPath = storagePath + "/data";
-		wdPath = storagePath + "/drivers";
-	}
-
-	public WebDriver getWebDriver(String browser) throws MalformedURLException {
+	public WebDriver getWebDriver(String browser) {
 		String os = System.getProperty("os.name").toLowerCase();
         String webDriverType = browser.toLowerCase();
         String executable;
 
 		System.out.println("Executing Tests on OS " + os);
+
+		String workingPath = System.getProperty("user.dir");
+		String wdPath = workingPath + "/drivers";
 
 		switch(webDriverType) {
 			case "firefox":
@@ -121,24 +90,5 @@ public class Driver {
 		DC.setCapability("newCommandTimeout",3000);
 
 		return new AndroidDriver(new URL(appiumServerURL), DC);
-	}
-
-	public Platform getPlatform(String platformName) {
-		String osName = platformName.toUpperCase();
-
-		if(osName.equals("WIN8.1"))
-			return Platform.WIN8_1;
-		else if (osName.equals("WIN8"))
-			return Platform.WIN8;
-		else if (osName.equals("ANDROID"))
-			return Platform.ANDROID;
-		else if (osName.equals("LINUX"))
-			return Platform.LINUX;
-		else if (osName.equals("MAC"))
-			return Platform.MAC;
-		else if (osName.equals("WIN"))
-			return Platform.WINDOWS;
-		else
-			return Platform.ANY;
 	}
 }

@@ -5,9 +5,9 @@ import io.appium.java_client.AppiumDriver;
 
 import java.util.List;
 
-import io.appium.java_client.TouchAction;
+import io.appium.java_client.MobileDriver;
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.AndroidElement;
+
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -16,13 +16,13 @@ import org.openqa.selenium.NoSuchElementException;
 
 public class Wrappers {
 
-	private WebDriver driver;
-	
-	//Constructor
-	public Wrappers(WebDriver driver)
-	{
-		this.driver = driver;
-	}
+    private WebDriver driver;
+
+    //Constructor
+    public Wrappers(WebDriver driver)
+    {
+        this.driver = driver;
+    }
 
     public WebElement getElement(String objDesc) {
         //Delimiters
@@ -30,52 +30,34 @@ public class Wrappers {
         String[] arrFindByValues = objDesc.split(delimiters[0]);
 
         //Get Findby and Value
-        String FindBy = arrFindByValues[0];
+        String FindBy = arrFindByValues[0].toLowerCase();
         String val = arrFindByValues[1];
 
-        //Handle all FindBy cases
-        String strElement = FindBy.toLowerCase();
-
-        try{
-            if (strElement.equalsIgnoreCase("id"))
+        switch(FindBy) {
+            case "id":
                 return driver.findElement(By.id(val));
-
-            else if (strElement.equalsIgnoreCase("name"))
+            case "name":
                 return driver.findElement(By.name(val));
-
-            else if (strElement.equalsIgnoreCase("linktext"))
-                return driver.findElement(By.linkText(val));
-
-            else if (strElement.equalsIgnoreCase("classname"))
+            case "classname":
                 return driver.findElement(By.className(val));
-
-            else if (strElement.equalsIgnoreCase("cssselector"))
-                return driver.findElement(By.cssSelector(val));
-
-            else if (strElement.equalsIgnoreCase("xpath"))
-                return driver.findElement(By.xpath(val));
-
-            else if (strElement.equalsIgnoreCase("accessibility_id"))
-                return ((AppiumDriver)driver).findElement(MobileBy.AccessibilityId(val));
-
-            else if (strElement.equalsIgnoreCase("appclassname"))
-                return ((AppiumDriver)driver).findElement(By.className(val));
-
-            else if (strElement.equalsIgnoreCase("uiautomator"))
-                return ((AppiumDriver)driver).findElement(MobileBy.AndroidUIAutomator(val));
-
-            else if (strElement.equalsIgnoreCase("partiallinktext"))
+            case "linktext":
+                return driver.findElement(By.linkText(val));
+            case "partiallinktext":
                 return driver.findElement(By.partialLinkText(val));
-
-            else if (strElement.equalsIgnoreCase("tagname"))
+            case "tagname":
                 return driver.findElement(By.tagName(val));
-
-            else {
+            case "cssselector":
+                return driver.findElement(By.cssSelector(val));
+            case "xpath":
+                return driver.findElement(By.xpath(val));
+            case "accessibility_id":
+                return ((AppiumDriver)driver).findElement(MobileBy.AccessibilityId(val));
+            case "appclassname":
+                return ((AppiumDriver)driver).findElement(By.className(val));
+            case "uiautomator":
+                return ((AppiumDriver)driver).findElement(MobileBy.AndroidUIAutomator(val));
+            default:
                 throw(new InvalidSelectorException("Wrapper method getElement() : Property "  + FindBy + " specified for element is invalid"));
-            }
-        }
-        catch(NoSuchElementException ex) {
-            throw(ex);
         }
     }
 
@@ -85,48 +67,35 @@ public class Wrappers {
         String[] arrFindByValues = objDesc.split(delimiters[0]);
 
         //Get Findby and Value
-        String FindBy = arrFindByValues[0];
+        String FindBy = arrFindByValues[0].toLowerCase();
         String val = arrFindByValues[1];
 
-        List<WebElement> elements = null;
-
-        //Handle all FindBy cases
-        String strElement = FindBy.toLowerCase();
-        if (strElement.equalsIgnoreCase("linktext"))
-            elements = driver.findElements(By.linkText(val));
-
-        else if (strElement.equalsIgnoreCase("partiallinktext"))
-            elements = driver.findElements(By.partialLinkText(val));
-
-        else if (strElement.equalsIgnoreCase("xpath"))
-            elements = driver.findElements(By.xpath(val));
-
-        else if (strElement.equalsIgnoreCase("name"))
-            elements = driver.findElements(By.name(val));
-
-        else if (strElement.equalsIgnoreCase("id"))
-            elements = driver.findElements(By.id(val));
-
-        else if (strElement.equalsIgnoreCase("classname"))
-            elements = driver.findElements(By.className(val));
-
-        else if (strElement.equalsIgnoreCase("cssselector"))
-            elements = driver.findElements(By.cssSelector(val));
-
-        else if (strElement.equalsIgnoreCase("tagname"))
-            elements = driver.findElements(By.tagName(val));
-
-        else if (strElement.equalsIgnoreCase("accessibility_id"))
-            elements = ((AppiumDriver)driver).findElements(MobileBy.AccessibilityId(val));
-
-        else if (strElement.equalsIgnoreCase("appclassname"))
-            elements = ((AppiumDriver)driver).findElements(By.className(val));
-
-        else {
-            throw(new InvalidSelectorException("Wrapper method getElements() : Property "  + FindBy + " specified for element is invalid"));
+        switch(FindBy) {
+            case "id":
+                return driver.findElements(By.id(val));
+            case "name":
+                return driver.findElements(By.name(val));
+            case "classname":
+                return driver.findElements(By.className(val));
+            case "linktext":
+                return driver.findElements(By.linkText(val));
+            case "partiallinktext":
+                return driver.findElements(By.partialLinkText(val));
+            case "tagname":
+                return driver.findElements(By.tagName(val));
+            case "cssselector":
+                return driver.findElements(By.cssSelector(val));
+            case "xpath":
+                return driver.findElements(By.xpath(val));
+            case "accessibility_id":
+                return ((AppiumDriver)driver).findElements(MobileBy.AccessibilityId(val));
+            case "appclassname":
+                return ((AppiumDriver)driver).findElements(By.className(val));
+            case "uiautomator":
+                return ((AppiumDriver)driver).findElements(MobileBy.AndroidUIAutomator(val));
+            default:
+                throw(new InvalidSelectorException("Wrapper method getElements() : Property "  + FindBy + " specified for element is invalid"));
         }
-
-        return elements;
     }
 
     public WebElement getChildElement(WebElement parentElem, String objDesc) {
@@ -135,46 +104,34 @@ public class Wrappers {
         String[] arrFindByValues = objDesc.split(delimiters[0]);
 
         //Get Findby and Value
-        String FindBy = arrFindByValues[0];
+        String FindBy = arrFindByValues[0].toLowerCase();
         String val = arrFindByValues[1];
 
-        //Handle all FindBy cases
-        String strElement = FindBy.toLowerCase();
-        if (strElement.equalsIgnoreCase("id"))
-            return parentElem.findElement(By.id(val));
-
-        else if (strElement.equalsIgnoreCase("name"))
-            return parentElem.findElement(By.name(val));
-
-        else if (strElement.equalsIgnoreCase("linktext"))
-            return parentElem.findElement(By.linkText(val));
-
-        else if (strElement.equalsIgnoreCase("classname"))
-            return parentElem.findElement(By.className(val));
-
-        else if (strElement.equalsIgnoreCase("cssselector"))
-            return parentElem.findElement(By.cssSelector(val));
-
-        else if (strElement.equalsIgnoreCase("xpath"))
-            return parentElem.findElement(By.xpath(val));
-
-        else if (strElement.equalsIgnoreCase("accessibility_id"))
-            return parentElem.findElement(MobileBy.AccessibilityId(val));
-
-        else if (strElement.equalsIgnoreCase("appclassname"))
-            return parentElem.findElement(By.className(val));
-
-        else if (strElement.equalsIgnoreCase("uiautomator"))
-            return parentElem.findElement(MobileBy.AndroidUIAutomator(val));
-
-        else if (strElement.equalsIgnoreCase("partiallinktext"))
-            return parentElem.findElement(By.partialLinkText(val));
-
-        else if (strElement.equalsIgnoreCase("tagname"))
-            return parentElem.findElement(By.tagName(val));
-
-        else {
-            throw(new InvalidSelectorException("Wrapper method getChildElement() : Property "  + FindBy + " specified for element is invalid"));
+        switch(FindBy) {
+            case "id":
+                return parentElem.findElement(By.id(val));
+            case "name":
+                return parentElem.findElement(By.name(val));
+            case "classname":
+                return parentElem.findElement(By.className(val));
+            case "linktext":
+                return parentElem.findElement(By.linkText(val));
+            case "partiallinktext":
+                return parentElem.findElement(By.partialLinkText(val));
+            case "tagname":
+                return parentElem.findElement(By.tagName(val));
+            case "cssselector":
+                return parentElem.findElement(By.cssSelector(val));
+            case "xpath":
+                return parentElem.findElement(By.xpath(val));
+            case "accessibility_id":
+                return ((AppiumDriver)parentElem).findElement(MobileBy.AccessibilityId(val));
+            case "appclassname":
+                return ((AppiumDriver)parentElem).findElement(By.className(val));
+            case "uiautomator":
+                return ((AppiumDriver)parentElem).findElement(MobileBy.AndroidUIAutomator(val));
+            default:
+                throw(new InvalidSelectorException("Wrapper method getChildElement() : Property "  + FindBy + " specified for element is invalid"));
         }
     }
 
@@ -184,66 +141,45 @@ public class Wrappers {
         String[] arrFindByValues = objDesc.split(delimiters[0]);
 
         //Get Findby and Value
-        String FindBy = arrFindByValues[0];
+        String FindBy = arrFindByValues[0].toLowerCase();
         String val = arrFindByValues[1];
 
-        //List
-        List<WebElement> elements = null;
-
-        //Handle all FindBy cases
-        String strElement = FindBy.toLowerCase();
-        if (strElement.equalsIgnoreCase("id"))
-            elements = parentElem.findElements(By.id(val));
-
-        else if (strElement.equalsIgnoreCase("name"))
-            elements = parentElem.findElements(By.name(val));
-
-        else if (strElement.equalsIgnoreCase("linktext"))
-            elements = parentElem.findElements(By.linkText(val));
-
-        else if (strElement.equalsIgnoreCase("classname"))
-            elements = parentElem.findElements(By.className(val));
-
-        else if (strElement.equalsIgnoreCase("cssselector"))
-            elements = parentElem.findElements(By.cssSelector(val));
-
-        else if (strElement.equalsIgnoreCase("xpath"))
-            elements = parentElem.findElements(By.xpath(val));
-
-        else if (strElement.equalsIgnoreCase("accessibility_id"))
-            elements = parentElem.findElements(MobileBy.AccessibilityId(val));
-
-        else if (strElement.equalsIgnoreCase("appclassname"))
-            elements = parentElem.findElements(By.className(val));
-
-        else if (strElement.equalsIgnoreCase("uiautomator"))
-            elements = parentElem.findElements(MobileBy.AndroidUIAutomator(val));
-
-        else if (strElement.equalsIgnoreCase("partiallinktext"))
-            elements = parentElem.findElements(By.partialLinkText(val));
-
-        else if (strElement.equalsIgnoreCase("tagname"))
-            elements = parentElem.findElements(By.tagName(val));
-
-        else{
-            throw(new InvalidSelectorException("Wrapper method getChildElements() : Property "  + FindBy + " specified for element is invalid"));
+        switch(FindBy) {
+            case "id":
+                return parentElem.findElements(By.id(val));
+            case "name":
+                return parentElem.findElements(By.name(val));
+            case "classname":
+                return parentElem.findElements(By.className(val));
+            case "linktext":
+                return parentElem.findElements(By.linkText(val));
+            case "partiallinktext":
+                return parentElem.findElements(By.partialLinkText(val));
+            case "tagname":
+                return parentElem.findElements(By.tagName(val));
+            case "cssselector":
+                return parentElem.findElements(By.cssSelector(val));
+            case "xpath":
+                return parentElem.findElements(By.xpath(val));
+            case "accessibility_id":
+                return parentElem.findElements(MobileBy.AccessibilityId(val));
+            case "appclassname":
+                return parentElem.findElements(By.className(val));
+            case "uiautomator":
+                return parentElem.findElements(MobileBy.AndroidUIAutomator(val));
+            default:
+                throw(new InvalidSelectorException("Wrapper method getChildElements() : Property "  + FindBy + " specified for element is invalid"));
         }
-
-        return elements;
     }
 
 	public boolean isElementPresent(String strDesc){
         List<WebElement> lst = getElements(strDesc);
-        boolean isPresent = (lst == null || lst.size() == 0) ? false : true;
-
-        return isPresent;
+        return !(lst == null || lst.size() == 0);
     }
 
 	public boolean isChildElementPresent(WebElement objParent, String strDesc) {
         List<WebElement> lst = getChildElements(objParent,strDesc);
-        boolean isPresent = (lst == null || lst.size() == 0) ? false : true;
-        
-        return isPresent;
+        return !(lst == null || lst.size() == 0);
     }
 
 	public boolean isElementDisplayed(String strDesc) throws InterruptedException {
@@ -253,10 +189,6 @@ public class Wrappers {
 
 	public boolean isElementDisplayed(WebElement webElement) throws InterruptedException {
         boolean bIsDisplayed = webElement.isDisplayed();
-        String state = bIsDisplayed ? "displayed" : "not displayed";
-        String strDesc = webElement.toString();
-        
-
         return  bIsDisplayed;
     }
 
@@ -268,12 +200,7 @@ public class Wrappers {
 
     public boolean isElementEnabled(WebElement webElement) throws InterruptedException {
     	//Check if the WebElement is Enabled
-        boolean bIsEnabled = webElement.isEnabled();
-        String state = bIsEnabled ? "enabled" : "disabled";
-        String strDesc = webElement.toString();
-        
-
-        return  bIsEnabled;
+        return webElement.isEnabled();
     }	
 
     public boolean isElementSelected(String strDesc) {
@@ -283,12 +210,7 @@ public class Wrappers {
     }
 
     public boolean isElementSelected(WebElement webElement){
-        boolean bIsSelected = webElement.isSelected();
-        String state = bIsSelected ? "selected" : "unselected";
-        String strDesc = webElement.toString();
-        
-
-        return  bIsSelected;
+        return webElement.isSelected();
     }
 
     public Wrappers click(String strDesc) {
@@ -298,18 +220,12 @@ public class Wrappers {
     }
 
     public Wrappers click(WebElement objClick) {
-        String strDesc = objClick.toString();
-
         //Check if the object is enabled, if yes click the same
-        if (objClick.isDisplayed() && objClick.isEnabled()){
+        if (objClick.isDisplayed() && objClick.isEnabled())
             //Click on the object
             objClick.click();
-        }
-        else{
-            
+        else
             throw(new ElementNotVisibleException("Wrapper method click() : Element is either not visible or is not enabled"));
-            //return false;
-        }
 
         return this;
     }	
@@ -323,16 +239,14 @@ public class Wrappers {
     	String strDesc = objEdit.toString();
 
         //Check if the object is enabled, if yes click the same
-        if (objEdit.isDisplayed() && objEdit.isEnabled()){
+        if (objEdit.isDisplayed() && objEdit.isEnabled()) {
             //Enter the text in the edit box
             objEdit.clear();
             objEdit.sendKeys(strText);
         }
-        else{
-            
+        else
             throw(new ElementNotVisibleException("Wrapper method enterText() : Element with description " + strDesc + " is either not visible or is not enabled"));
-            //return false;
-        }
+
         
         return this;
     }	
@@ -348,7 +262,7 @@ public class Wrappers {
         //Check if the object is enabled, if yes click the same
         if (objSelect.isDisplayed() && objSelect.isEnabled()){
             //Set Select Element and select required value by text
-            try{
+            try {
                 Select select = new Select(objSelect);
                 select.selectByVisibleText(strText);
             }
@@ -356,10 +270,8 @@ public class Wrappers {
                 throw(ex);
             }
         }
-        else{
-            
+        else
             throw(new ElementNotVisibleException("Wrapper method selectOptionFromList() : Element with description " + strDesc + " is either not visible or is not enabled"));
-        }
 
         return this;
     }
@@ -382,9 +294,8 @@ public class Wrappers {
             if(isChecked == false)
                 objChkBox.click();
         }
-        else {
+        else
             throw(new ElementNotVisibleException("Wrapper method checkCheckBox() : Element with description " + strDesc + " is either not visible or is not enabled"));
-        }
         
         return this;
     }
@@ -407,9 +318,8 @@ public class Wrappers {
             if(isChecked == true)
                 objChkBox.click();
         }
-        else {
+        else
             throw(new ElementNotVisibleException("Wrapper method checkCheckBox() : Element with description " + strDesc + " is either not visible or is not enabled"));
-        }
         
         return this;
     }
@@ -426,20 +336,11 @@ public class Wrappers {
 
     public Wrappers rotateDeviceScreen(String Orientation) throws InterruptedException {
 
-        String strOrientation = "";
-        ScreenOrientation iOrientation;
-
         try {
-            if (Orientation.equalsIgnoreCase("L")){
+            if (Orientation.equalsIgnoreCase("L"))
                 ((AppiumDriver)driver).rotate(ScreenOrientation.LANDSCAPE);
-                iOrientation = ScreenOrientation.LANDSCAPE;
-                strOrientation = "Landscape";
-            }
-            else {
+            else
                 ((AppiumDriver)driver).rotate(ScreenOrientation.PORTRAIT);
-                iOrientation = ScreenOrientation.PORTRAIT;
-                strOrientation = "Portrait";
-            }
 
             //wait till orientation change
             Thread.sleep(1000);

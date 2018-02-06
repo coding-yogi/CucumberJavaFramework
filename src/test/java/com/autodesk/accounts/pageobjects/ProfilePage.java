@@ -9,16 +9,14 @@ import org.openqa.selenium.WebDriver;
  */
 public class ProfilePage extends BasePage{
 
-    private WebDriver driver;
     private Wrappers objWrapper;
 
     public static final String pageTitle = "Autodesk - User Profile";
-    String tbProfile = "classname:=profile";
+    private String tbProfile = "classname:=profile";
 
     //Define the constructor
     public ProfilePage(WebDriver driver)
     {
-        this.driver = driver;
         objWrapper = new Wrappers(driver);
     }
 

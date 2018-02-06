@@ -19,10 +19,10 @@ public class LoginPage extends BasePage{
     public static final String pageTitle = "Autodesk - Sign In";
 
     //Page UI Objects
-    public final String edtUserName = "id:=userName";
-    public final String edtPassword = "id:=password";
-    public final String btnSubmit = "id:=btnSubmit";
-    public final String txtErrors = "xpath:=//span[contains(@class,'field-validation-error')]/span";
+    private final String edtUserName = "id:=userName";
+    private final String edtPassword = "id:=password";
+    private final String btnSubmit = "id:=btnSubmit";
+    private final String txtErrors = "xpath:=//span[contains(@class,'field-validation-error')]/span";
 
     //Define the constructor
     public LoginPage(WebDriver driver)
