@@ -1,0 +1,18 @@
+{
+  "appdata": {
+    "env": {
+      "dev": {
+        "currencyToAdd": "ZAR"
+      }
+      },
+      "integration": {
+        "currencyToAdd": "ZAR"
+      },
+      "staging": {
+        "currencyToAdd": "ZAR"
+      },
+      "production": {
+        "currencyToAdd": "ZAR"
+      }
+    }
+}

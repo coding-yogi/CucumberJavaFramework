@@ -1,0 +1,16 @@
+#gradle
+build
+gradle
+gradlew.bat
+gradlew
+.gradle/
+
+#intellij
+.idea
+
+#target
+target
+
+#mac
+.DS_Store
+
