@@ -16,7 +16,6 @@ import org.openqa.selenium.NoSuchElementException;
 
 public class Wrappers {
 
-    private Reporting reporter;
 	private WebDriver driver;
 	
 	//Constructor

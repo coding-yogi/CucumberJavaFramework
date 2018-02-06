@@ -1,11 +1,8 @@
 package com.autodesk.accounts.pageobjects;
 
 import com.framework.base.BasePage;
-import com.framework.core.Reporting;
 import com.framework.core.Wrappers;
 import org.openqa.selenium.WebDriver;
-
-import java.util.HashMap;
 
 /**
  * Created by gadrea on 5/5/2015.
